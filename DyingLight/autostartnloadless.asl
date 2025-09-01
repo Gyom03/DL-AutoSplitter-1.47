@@ -1,18 +1,23 @@
-//New pointers by Mysterion_06_ & code remodification by Ero
-
 state("DyingLightGame")
 {
-	int start : "gamedll_x64_rwdi.dll", 0x1CF8050;
-	int loading: "rd3d11_x64_rwdi.dll", 0x7E048;
+	int start : "gamedll_x64_rwdi.dll", 0x1D9CF40;
+	int loading: "rd3d11_x64_rwdi.dll", 0x7D108; // Thanks to Mr.Brood for this one.
+}
+
+update
+{
+	vars.isLoading = false;	
+	vars.isLoading = (current.loading == 240) ? true : false;
 }
 
 start
 {
-	return old.start != 2 && current.start == 2;
+	return current.start == 2 && (old.start != current.start);
 }
 
 isLoading
 {
-	return current.loading == 240;
+	return vars.isLoading;
 }
+
 
